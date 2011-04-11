@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>slim3example</title>
+<script type="text/javascript" src="js/jquery-1.5.js"></script>
+<script type="text/javascript">//<![CDATA[
+$(function(){
+  $('#refreshButton').click(function() { refresh(); });
+  refresh();
+});
+function refresh() {
+  $.ajax({
+    type: 'get', url: 'index', 
+    success: function(json) {
+      if (json.status === 'OK') {
+        $('#message').children('span').remove();
+        $('<span/>').appendTo('#message').text(json.message);
+      } else {
+        alert(json.errorMessage);
+      }
+    }
+  });
+}
+//]]></script>
+</head>
+<body>
+<h1>slim3example</h1>
+<p id="message"><span>ここにメッセージが表示されます。</span></p>
+<p><input type="button" id="refreshButton" value="更新" /></p>
+</body>
+</html>
